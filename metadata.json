@@ -1,0 +1,6 @@
+{
+  "name": "Jogo do Palito - Purrinha & Blefe",
+  "description": "O clássico jogo de botequim brasileiro do Palito (Purrinha/Porco) com lógica de apostas, inteligência de bots, revelação dramática e histórico de mesa.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
