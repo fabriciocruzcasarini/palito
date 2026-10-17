@@ -7,6 +7,7 @@ interface TitleScreenProps {
   onCreateOnlineRoom: (hostName: string, maxPlayers: number) => void;
   onJoinOnlineRoom: (roomCode: string, playerName: string) => void;
   onOpenRules: () => void;
+  onOpenRanking?: () => void;
   onlineError?: string | null;
 }
 
@@ -15,6 +16,7 @@ export const TitleScreen: React.FC<TitleScreenProps> = ({
   onCreateOnlineRoom,
   onJoinOnlineRoom,
   onOpenRules,
+  onOpenRanking,
   onlineError,
 }) => {
   const [mode, setMode] = useState<'bot' | 'online_create' | 'online_join'>('bot');
@@ -72,14 +74,26 @@ export const TitleScreen: React.FC<TitleScreenProps> = ({
             Tradição dos Botequins do Brasil
           </span>
         </div>
-        <button
-          type="button"
-          onClick={onOpenRules}
-          className="px-3.5 py-1.5 rounded-full bg-stone-900 border border-amber-600/40 text-amber-300 hover:text-white hover:border-amber-400 text-xs font-bold transition-all cursor-pointer flex items-center gap-1.5"
-        >
-          <span>📖</span>
-          <span>Como Jogar</span>
-        </button>
+        <div className="flex items-center gap-2">
+          {onOpenRanking && (
+            <button
+              type="button"
+              onClick={onOpenRanking}
+              className="px-3.5 py-1.5 rounded-full bg-amber-500/15 border border-amber-500/40 text-amber-300 hover:text-white hover:bg-amber-500/30 text-xs font-bold transition-all cursor-pointer flex items-center gap-1.5 shadow-sm"
+            >
+              <span>🏆</span>
+              <span>Ranking</span>
+            </button>
+          )}
+          <button
+            type="button"
+            onClick={onOpenRules}
+            className="px-3.5 py-1.5 rounded-full bg-stone-900 border border-amber-600/40 text-amber-300 hover:text-white hover:border-amber-400 text-xs font-bold transition-all cursor-pointer flex items-center gap-1.5"
+          >
+            <span>📖</span>
+            <span>Como Jogar</span>
+          </button>
+        </div>
       </header>
 
       {/* Hero Centerpiece: Bespoke Title Lockup */}

@@ -23,6 +23,7 @@ import { ActionDock } from './components/ActionDock';
 import { LogDrawer } from './components/LogDrawer';
 import { RulesModal } from './components/RulesModal';
 import { VictoryModal } from './components/VictoryModal';
+import { RankingModal } from './components/RankingModal';
 
 type AppState = 'title' | 'playing' | 'paused' | 'gameover';
 type GamePhase = 'hand_selection' | 'betting' | 'reveal' | 'round_result';
@@ -47,6 +48,7 @@ export default function App() {
   // UI Modals & Drawers
   const [showLogDrawer, setShowLogDrawer] = useState<boolean>(false);
   const [showRulesModal, setShowRulesModal] = useState<boolean>(false);
+  const [showRankingModal, setShowRankingModal] = useState<boolean>(false);
   const [isMuted, setIsMuted] = useState<boolean>(false);
 
   // Online Multiplayer Hook
@@ -350,6 +352,7 @@ export default function App() {
               onCreateOnlineRoom={handleCreateRoom}
               onJoinOnlineRoom={handleJoinRoom}
               onOpenRules={() => setShowRulesModal(true)}
+              onOpenRanking={() => setShowRankingModal(true)}
               onlineError={onlineError}
             />
           )}
@@ -357,6 +360,11 @@ export default function App() {
           <RulesModal
             isOpen={showRulesModal}
             onClose={() => setShowRulesModal(false)}
+          />
+
+          <RankingModal
+            isOpen={showRankingModal}
+            onClose={() => setShowRankingModal(false)}
           />
         </div>
       );
@@ -413,9 +421,19 @@ export default function App() {
 
             <button
               type="button"
+              onClick={() => setShowRankingModal(true)}
+              title="Ranking de Jogadores"
+              className="px-3 h-9 rounded-xl bg-amber-500/20 hover:bg-amber-500/30 text-amber-300 border border-amber-500/40 font-bold text-xs flex items-center gap-1.5 cursor-pointer transition-all"
+            >
+              <span>🏆</span>
+              <span className="hidden sm:inline">Ranking</span>
+            </button>
+
+            <button
+              type="button"
               onClick={() => setShowLogDrawer(true)}
               title="Histórico da Mesa [L]"
-              className="px-3 h-9 rounded-xl bg-amber-500/20 hover:bg-amber-500/30 text-amber-300 border border-amber-500/40 font-bold text-xs flex items-center gap-1.5 cursor-pointer transition-all"
+              className="px-3 h-9 rounded-xl bg-stone-800 hover:bg-stone-750 text-stone-300 border border-stone-700 font-bold text-xs flex items-center gap-1.5 cursor-pointer transition-all"
             >
               <span>📜</span>
               <span className="hidden sm:inline">Histórico</span>
@@ -506,6 +524,7 @@ export default function App() {
           onCreateOnlineRoom={handleCreateRoom}
           onJoinOnlineRoom={handleJoinRoom}
           onOpenRules={() => setShowRulesModal(true)}
+          onOpenRanking={() => setShowRankingModal(true)}
           onlineError={onlineError}
         />
       )}
@@ -557,9 +576,19 @@ export default function App() {
 
               <button
                 type="button"
+                onClick={() => setShowRankingModal(true)}
+                title="Ranking de Jogadores"
+                className="px-3 h-9 rounded-xl bg-amber-500/20 hover:bg-amber-500/30 text-amber-300 border border-amber-500/40 font-bold text-xs flex items-center gap-1.5 cursor-pointer transition-all"
+              >
+                <span>🏆</span>
+                <span className="hidden sm:inline">Ranking</span>
+              </button>
+
+              <button
+                type="button"
                 onClick={() => setShowLogDrawer(true)}
                 title="Histórico da Mesa [L]"
-                className="px-3 h-9 rounded-xl bg-amber-500/20 hover:bg-amber-500/30 text-amber-300 border border-amber-500/40 font-bold text-xs flex items-center gap-1.5 cursor-pointer transition-all"
+                className="px-3 h-9 rounded-xl bg-stone-800 hover:bg-stone-750 text-stone-300 border border-stone-700 font-bold text-xs flex items-center gap-1.5 cursor-pointer transition-all"
               >
                 <span>📜</span>
                 <span className="hidden sm:inline">Histórico</span>
@@ -665,6 +694,13 @@ export default function App() {
       <RulesModal
         isOpen={showRulesModal}
         onClose={() => setShowRulesModal(false)}
+      />
+
+      {/* RANKING MODAL */}
+      <RankingModal
+        isOpen={showRankingModal}
+        onClose={() => setShowRankingModal(false)}
+        highlightPlayerName={humanPlayer?.name || 'Você'}
       />
     </div>
   );
