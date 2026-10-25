@@ -14,6 +14,8 @@ export interface PlayerRankingStat {
 
 export const RANKING_STORAGE_KEY = 'purrinha_player_rankings_v1';
 
+import { BOT_ARCHETYPES } from '../config/bots.ts';
+
 /**
  * Calculates win percentage rounded to 1 decimal place.
  */
@@ -86,12 +88,28 @@ export function updateRankingsWithMatch(
   return sortRankings(Array.from(map.values()));
 }
 
-export const DEFAULT_INITIAL_RANKINGS: PlayerRankingStat[] = [
-  { name: 'Seu Zé', avatar: '🍺', gamesPlayed: 6, wins: 4, winRate: 66.7, lastPlayed: Date.now() - 7200000 },
-  { name: 'Dona Cida', avatar: '👵', gamesPlayed: 5, wins: 2, winRate: 40.0, lastPlayed: Date.now() - 14400000 },
-  { name: 'Tonho', avatar: '🧐', gamesPlayed: 4, wins: 1, winRate: 25.0, lastPlayed: Date.now() - 21600000 },
-  { name: 'Tião Blefador', avatar: '🤠', gamesPlayed: 3, wins: 0, winRate: 0.0, lastPlayed: Date.now() - 28800000 },
+const DEFAULT_BOT_PRESET_STATS = [
+  { gamesPlayed: 6, wins: 4 },
+  { gamesPlayed: 5, wins: 2 },
+  { gamesPlayed: 4, wins: 1 },
+  { gamesPlayed: 3, wins: 1 },
+  { gamesPlayed: 3, wins: 0 },
 ];
+
+/**
+ * Rankings iniciais padrão gerados automaticamente a partir do arquivo central de IAs.
+ */
+export const DEFAULT_INITIAL_RANKINGS: PlayerRankingStat[] = BOT_ARCHETYPES.map((bot, index) => {
+  const preset = DEFAULT_BOT_PRESET_STATS[index % DEFAULT_BOT_PRESET_STATS.length];
+  return {
+    name: bot.name,
+    avatar: bot.avatar,
+    gamesPlayed: preset.gamesPlayed,
+    wins: preset.wins,
+    winRate: calculateWinRate(preset.wins, preset.gamesPlayed),
+    lastPlayed: Date.now() - (index + 1) * 7200000,
+  };
+});
 
 /**
  * Loads rankings from localStorage with safe fallback to initial tavern bots.

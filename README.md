@@ -201,9 +201,10 @@ Caso queira hospedar o jogo em um servidor Linux com **Apache**, como sob o subc
 │   │   ├── RulesModal.tsx      # Manual ilustrado de regras
 │   │   ├── TableBoard.tsx      # Mesa principal do boteco com os jogadores
 │   │   ├── TitleScreen.tsx     # Tela inicial com seleção de modos e ranking
-│   │   └── VictoryModal.tsx    # Tela de fim de jogo com campeão e ranking
+│   ├── config/                 # Configurações centralizadas
+│   │   └── bots.ts             # ÚNICO local para configurar nomes, avatares e IAs
 │   ├── game/                   # Regras de negócio desacopladas
-│   │   ├── rules.ts            # Lógica pura da purrinha, bots e validações
+│   │   ├── rules.ts            # Lógica pura da purrinha e validações
 │   │   └── rules.test.ts       # Testes unitários das regras
 │   ├── hooks/                  # Hooks personalizados
 │   │   └── useMultiplayer.ts   # Conexão WebSocket e sincronização online

@@ -41,38 +41,10 @@ export interface ValidBetRange {
 
 export const INITIAL_STICKS = 3;
 
-export const BOT_ARCHETYPES = [
-  {
-    name: 'Tião Blefador',
-    avatar: '🤠',
-    personality: 'bluffer' as const,
-    personalityLabel: 'Blefador nato, adora esconder zero ou tudo!',
-  },
-  {
-    name: 'Zé da Purrinha',
-    avatar: '🧐',
-    personality: 'calculated' as const,
-    personalityLabel: 'Calculista frio da mesa de bar, joga na média probabilística.',
-  },
-  {
-    name: 'Beto Gulosão',
-    avatar: '🍺',
-    personality: 'greedy' as const,
-    personalityLabel: 'Gosta de encher a mão de palito e puxar apostas altas.',
-  },
-  {
-    name: 'Tonho Mandinga',
-    avatar: '🎲',
-    personality: 'unpredictable' as const,
-    personalityLabel: 'Imprevisível, nunca se sabe o que ele vai aprontar.',
-  },
-  {
-    name: 'Dona Cida',
-    avatar: '👵',
-    personality: 'calculated' as const,
-    personalityLabel: 'Veterana dos botequins, raramente erra por mais de 1.',
-  },
-];
+import { BOT_ARCHETYPES } from '../config/bots.ts';
+import type { BotArchetype, BotPersonality } from '../config/bots.ts';
+export { BOT_ARCHETYPES };
+export type { BotArchetype, BotPersonality };
 
 /**
  * Creates initial players list for a game.
